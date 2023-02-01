@@ -3,9 +3,9 @@ from tabulate import tabulate
 
 
 class Person:
-    def __init__(self, path_file):
+    def __init__(self, file_path):
         try:
-            with open(path_file, encoding="utf-8") as file:
+            with open(file_path, encoding="utf-8") as file:
                 persons = []
                 # Skip empty lines
                 for line in file:
@@ -15,7 +15,7 @@ class Person:
                 self.persons = persons
 
                 # Paths
-                self.path_file = path_file
+                self.file_path = file_path
                 self.adults_path = "adults.txt"
                 self.minors_path = "minors.txt"
         except FileNotFoundError as fnfe:
@@ -78,7 +78,7 @@ class Person:
     # Read file and write the defined data to new files
     def sort_data(self):
 
-        with open(self.path_file, encoding="utf-8") as file:
+        with open(self.file_path, encoding="utf-8") as file:
             lines = file.readlines()
             splitted_lines = self.split_lines(lines)
 
