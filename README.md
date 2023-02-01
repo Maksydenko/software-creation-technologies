@@ -4,15 +4,13 @@
 
 ### **Short annotation to the course:**
 
-The purpose of the course is to form the student's knowledge of designing and developing software using the object-oriented programming paradigm.
+The course is devoted to the development of applications for Windows, Mac OS, Linux using the cross-platform PyQt 5 library and the Python programming language.
 
-The course examines the principles of object-oriented programming (encapsulation, inheritance, polymorphism), the need for an optimal balance between imitation and
-composition, specifics of using abstract classes and interfaces, elements of object-oriented analysis and design, principles of DRY, KISS, SOLID and templates
-designing. The Python programming language and PyCharm integrated development environment are used in the course to create object-oriented computer programs.
+The course covers topics such as the general structure of a project with a graphical user interface, event processing mechanisms and organization of user interaction with the application, classes of basic visual components and layout managers, methods of implementing the main elements of the main application window - menu, toolbar and statusbar, development principles single-document interfaces.
 
 ---
 
-### **Main**
+### **Lab 1**
 
 **📅 Date:** 01.02.2023
 
@@ -21,10 +19,11 @@ designing. The Python programming language and PyCharm integrated development en
 <details>
 <summary><b>📋 Specification:</b></summary>
 
-Прочитати із файлу не менше 5-ти записів у вигляді: 2 текстових значення, 1 дійсне число, 1 ціле число. Проаналізувати ціле число. Залежно від результату записати у другий чи третій файл. Порахувати кількість записів, та середньо арифметичне числових значень.
+Read from a file at least 5 records in the form of: 2 textuals, 1 real number, 1 integer.Analyze the integer. Depending on the result, write in the second or third file. Calculate the number of records, and arithmetic numerical values.
 
-На екран вивести вміст усіх 3-х файлів, показати у табличному вигляді.
+Display the contents of all 3 files on the screen, show in tabular form.
 
-Приклади структури класу (та відповідно структури файлів):
+Examples of class structure (and respectively file structure):
 
-Прізвище ім'я зп рік народження або вік
+- surname name slary age
+</details>

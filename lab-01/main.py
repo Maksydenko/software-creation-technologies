@@ -1,9 +1,23 @@
+import os
+from tabulate import tabulate
+
+
 class Person:
     def __init__(self, path_file):
         try:
             with open(path_file, encoding="utf-8") as file:
+                persons = []
+                # Skip empty lines
+                for line in file:
+                    if line == "\n":
+                        continue
+                    persons.append(line)
+                self.persons = persons
+
+                # Paths
                 self.path_file = path_file
-                self.persons = file.readlines()
+                self.adults_path = "adults.txt"
+                self.minors_path = "minors.txt"
         except FileNotFoundError as fnfe:
             print(fnfe)
 
@@ -25,9 +39,12 @@ class Person:
         except ValueError:
             return False
 
+    # Split the words of each line
     @staticmethod
     def split_lines(lines):
+        # Delete \n
         lines = [line.rstrip() for line in lines]
+
         splitted_lines = []
 
         for line in lines:
@@ -35,6 +52,7 @@ class Person:
             splitted_lines.append(splitted_line)
         return splitted_lines
 
+    # Count the average from the list
     @staticmethod
     def count_average(list):
         len_list = len(list)
@@ -45,64 +63,69 @@ class Person:
         average = sum / len_list
         return average
 
-    def read_data(self):
+    # Create new files after deleting existing ones
+    @staticmethod
+    def delete_creat(path, data):
+        try:
+            os.remove(path)
+        except FileNotFoundError:
+            pass
+
+        if len(data):
+            with open(path, "w", encoding="utf-8") as file:
+                file.writelines(data)
+
+    # Read file and write the defined data to new files
+    def sort_data(self):
+
         with open(self.path_file, encoding="utf-8") as file:
             lines = file.readlines()
-            lines = [line.rstrip() for line in lines]
+            splitted_lines = self.split_lines(lines)
+
             correct_persons = []
             adults = []
             minors = []
 
-            for line in lines:
-                splitted_line = line.split()
-
-                if len(splitted_line) == 4:
-                    surname = splitted_line[0]
-                    name = splitted_line[1]
-                    salary = splitted_line[2]
-                    age = splitted_line[3]
-
-                    if (self.is_float(surname) and self.is_float(name)) == False and self.is_float(salary) and self.is_float(age):
+            for index in range(len(splitted_lines)):
+                if len(splitted_lines[index]) == 4:
+                    surname = splitted_lines[index][0]
+                    name = splitted_lines[index][1]
+                    salary = splitted_lines[index][2]
+                    age = splitted_lines[index][3]
+                    # Check each value of data line
+                    if (self.is_float(surname) and self.is_float(name)) == False \
+                            and self.is_float(salary) and self.is_float(age):
                         if self.is_int(age):
                             age = int(age)
+                            # Check the correctness of age
                             if 0 > age > 123:
                                 continue
                             elif age >= 18:
-                                adults.append(line + "\n")
+                                adults.append(lines[index])
                             else:
-                                minors.append(line + "\n")
-                            correct_persons.append(line + "\n")
+                                minors.append(lines[index])
+                            correct_persons.append(lines[index])
                     else:
                         continue
                 else:
                     continue
-            return correct_persons, adults, minors
+            self.delete_creat(self.adults_path, adults)
+            self.delete_creat(self.minors_path, minors)
+            return correct_persons
 
-    def write_data(self):
-        adults = self.read_data()[0]
-        minors = self.read_data()[1]
-
-        if len(adults):
-            with open("adults.txt", "w", encoding="utf-8") as file:
-                file.writelines(adults)
-        if len(minors):
-            with open("minors.txt", "w", encoding="utf-8") as file:
-                file.writelines(minors)
-
+    # Count average salaries and ages
     def count_averages(self):
-        correct_persons = self.read_data()[0]
+        correct_persons = self.sort_data()
         splitted_persons = self.split_lines(correct_persons)
 
         salaries = []
         ages = []
 
         for line in splitted_persons:
-            salary = line[2]
-            salary = int(salary)
+            salary = int(line[2])
             salaries.append(salary)
 
-            age = line[3]
-            age = int(age)
+            age = int(line[3])
             ages.append(age)
         average_salary = self.count_average(salaries)
         average_age = self.count_average(ages)
@@ -110,40 +133,49 @@ class Person:
         return average_salary, average_age
 
     def __str__(self):
-        from tabulate import tabulate
+        correct_persons = self.sort_data()
+        splitted_persons = self.split_lines(correct_persons)
 
-        persons = self.persons
-        correct_persons = self.read_data()[0]
-
-        len_persons = len(persons)
+        # Lengths
+        len_persons = len(self.persons)
         len_correct_persons = len(correct_persons)
 
-        adults = self.read_data()[1]
-        minors = self.read_data()[2]
+        # Try get data from file
+        try:
+            with open(self.adults_path, encoding="utf-8") as file:
+                adults = file.readlines()
+        except FileNotFoundError:
+            adults = []
 
-        splitted_persons = self.split_lines(correct_persons)
-        splitted_adults = self.split_lines(adults)
-        splitted_minors = self.split_lines(minors)
+        # Try get data from file
+        try:
+            with open(self.minors_path, encoding="utf-8") as file:
+                minors = file.readlines()
+        except FileNotFoundError:
+            minors = []
 
+        # Values of header
         headers_value = ["Surname", "Name", "Salary", "Age"]
 
-        if len_correct_persons:
-            average_salary = self.count_averages()[0]
-            average_age = self.count_averages()[1]
-
-        if len(correct_persons):
-            print(
-                f"All persons:\n{tabulate(splitted_persons, headers=headers_value, tablefmt='grid')}")
+        # Try output table from file of adults
         if len(adults):
+            splitted_adults = self.split_lines(adults)
             print(
                 f"Adults:\n{tabulate(splitted_adults, headers=headers_value, tablefmt='grid')}")
+
+        # Try output table from file of minors
         if len(minors):
+            splitted_minors = self.split_lines(minors)
             print(
                 f"Minors:\n{tabulate(splitted_minors, headers=headers_value, tablefmt='grid')}")
+
+        # Try output table from file of all persons and averages salary and age
         if len_correct_persons:
-            print(f"salary: {average_salary}; average age: {average_age}")
+            print(
+                f"All persons:\n{tabulate(splitted_persons, headers=headers_value, tablefmt='grid')}")
+            average_salary = self.count_averages()[0]
+            average_age = self.count_averages()[1]
+            print(
+                f"Average salary: {average_salary}; average age: {average_age}")
+        # The number of successful and all data
         return f"{len_correct_persons} / {len_persons} correct persons"
-
-
-test = Person("lab-01/persons.txt")
-print(test)
