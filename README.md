@@ -25,5 +25,5 @@ Display the contents of all 3 files on the screen, show in tabular form.
 
 Examples of class structure (and respectively file structure):
 
-- surname name slary age
+- surname name slary age.
 </details>
