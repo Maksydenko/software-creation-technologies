@@ -39,8 +39,17 @@ Examples of class structure (and respectively file structure):
 <details>
 <summary><b>📋 Specification:</b></summary>
 
-- Install QT of the appropriate version. **pip install pyqt5**
-- Install QT Designer. **pip install pyqt5-tools**
-- Install the converter: **pip install ui-to-py**
-- Create a form with 4 buttons in the designer, change the inscriptions on the buttons, save the project.
+- Install QT of the appropriate version:
+
+      pip install pyqt5
+
+- Install QT Designer:
+
+      pip install pyqt5-tools
+
+- Install the converter:
+
+      pip install ui-to-py
+
+- Create a form with 4 buttons in the designer, change the inscriptions on the buttons, save the project
 - Convert ui-file to py-file
