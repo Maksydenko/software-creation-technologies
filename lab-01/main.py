@@ -94,7 +94,7 @@ class Person:
                     age = splitted_lines[index][3]
                     # Check each value of data line
                     if (self.is_float(surname) and self.is_float(name)) == False \
-                            and self.is_float(salary) and self.is_float(age):
+                            and self.is_float(salary) and self.is_int(age):
                         if self.is_int(age):
                             age = int(age)
                             # Check the correctness of age
