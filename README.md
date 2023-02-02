@@ -34,7 +34,7 @@ Examples of class structure (and respectively file structure):
 
 **📅 Date:** 02.02.2023
 
-**📁 Project:** [link](lab-02/main.py)
+**📁 Project:** [link](lab-02)
 
 <details>
 <summary><b>📋 Specification:</b></summary>
