@@ -65,7 +65,7 @@ class Person:
 
     # Create new files after deleting existing ones
     @staticmethod
-    def delete_creat(path, data):
+    def delete_create(path, data):
         try:
             os.remove(path)
         except FileNotFoundError:
@@ -109,8 +109,8 @@ class Person:
                         continue
                 else:
                     continue
-            self.delete_creat(self.adults_path, adults)
-            self.delete_creat(self.minors_path, minors)
+            self.delete_create(self.adults_path, adults)
+            self.delete_create(self.minors_path, minors)
             return correct_persons
 
     # Count average salaries and ages

@@ -30,11 +30,11 @@ Examples of class structure (and respectively file structure):
 
 ---
 
-### **Lab 2**
+### **Practice 1**
 
 **📅 Date:** 02.02.2023
 
-**📁 Project:** [link](lab-02)
+**📁 Project:** [link](practice-01)
 
 <details>
 <summary><b>📋 Specification:</b></summary>
