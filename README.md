@@ -30,7 +30,7 @@ Examples of class structure (and respectively file structure):
 
 ---
 
-## **Installing and Running Qt DesignerЗавдання**
+## **Installing and Running Qt Designer**
 
 ### **Practice 1**
 
