@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Lab</class>
- <widget class="QDialog" name="Lab">
+ <class>Practice</class>
+ <widget class="QDialog" name="Practice">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -14,7 +14,7 @@
    <bool>false</bool>
   </property>
   <property name="windowTitle">
-   <string>Lab 2</string>
+   <string>Practice</string>
   </property>
   <widget class="QDialogButtonBox" name="buttonBox">
    <property name="geometry">
@@ -157,7 +157,7 @@
   <connection>
    <sender>buttonBox</sender>
    <signal>accepted()</signal>
-   <receiver>Lab</receiver>
+   <receiver>Practice</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -173,7 +173,7 @@
   <connection>
    <sender>buttonBox</sender>
    <signal>rejected()</signal>
-   <receiver>Lab</receiver>
+   <receiver>Practice</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
