@@ -67,5 +67,5 @@ Examples of class structure (and respectively file structure):
 
 <details>
 <summary><b>📋 Specification:</b></summary>
-Develop calculator using PyQt5
+Develop calculator using Qt Designer
 </details>
