@@ -30,6 +30,8 @@ Examples of class structure (and respectively file structure):
 
 ---
 
+## **Installing and Running Qt DesignerЗавдання**
+
 ### **Practice 1**
 
 **📅 Date:** 02.02.2023
@@ -53,3 +55,17 @@ Examples of class structure (and respectively file structure):
 
 - Create a form with 4 buttons in the designer, change the inscriptions on the buttons, save the project
 - Convert ui-file to py-file
+</details>
+
+---
+
+### **Practice 2**
+
+**📅 Date:** 16.02.2023
+
+**📁 Project:** [link](practice-02)
+
+<details>
+<summary><b>📋 Specification:</b></summary>
+Develop calculator using PyQt5
+</details>
