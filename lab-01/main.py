@@ -2,7 +2,7 @@ import os
 from tabulate import tabulate
 
 
-class Person:
+class Persons:
     def __init__(self, file_path):
         try:
             with open(file_path, encoding="utf-8") as file:
@@ -13,6 +13,7 @@ class Person:
                         continue
                     persons.append(line)
                 self.persons = persons
+                self.splitted_persons = self.split_lines(persons)
 
                 # Paths
                 self.file_path = file_path
@@ -77,23 +78,21 @@ class Person:
 
     # Read file and write the defined data to new files
     def sort_data(self):
-
-        with open(self.file_path, encoding="utf-8") as file:
-            lines = file.readlines()
-            splitted_lines = self.split_lines(lines)
+            persons = self.persons
+            splitted_persons = self.splitted_persons
 
             correct_persons = []
             adults = []
             minors = []
 
-            for index in range(len(splitted_lines)):
-                if len(splitted_lines[index]) == 4:
-                    surname = splitted_lines[index][0]
-                    name = splitted_lines[index][1]
-                    salary = splitted_lines[index][2]
-                    age = splitted_lines[index][3]
+            for index in range(len(splitted_persons)):
+                if len(splitted_persons[index]) == 4:
+                    surname = splitted_persons[index][0]
+                    name = splitted_persons[index][1]
+                    salary = splitted_persons[index][2]
+                    age = splitted_persons[index][3]
                     # Check each value of data line
-                    if (self.is_float(surname) and self.is_float(name)) == False \
+                    if (self.is_float(surname) or self.is_float(name)) == False \
                             and self.is_float(salary) and self.is_int(age):
                         if self.is_int(age):
                             age = int(age)
@@ -101,10 +100,10 @@ class Person:
                             if 0 > age > 123:
                                 continue
                             elif age >= 18:
-                                adults.append(lines[index])
+                                adults.append(persons[index])
                             else:
-                                minors.append(lines[index])
-                            correct_persons.append(lines[index])
+                                minors.append(persons[index])
+                            correct_persons.append(persons[index])
                     else:
                         continue
                 else:
