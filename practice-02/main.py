@@ -152,9 +152,12 @@ class Ui_Calculator(object):
         is_float = self.is_float
 
         if is_float(first_number) and self.is_float(second_number):
-            result = float(first_number.text()) / \
-                float(second_number.text())
-            answer.setText(str(result))
+            if float(second_number.text()) == 0:
+                answer.setText("ZeroDivision")
+            else:
+                result = float(first_number.text()) / \
+                    float(second_number.text())
+                answer.setText(str(result))
         else:
             answer.setText("ValueError")
 
