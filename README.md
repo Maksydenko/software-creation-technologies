@@ -67,5 +67,18 @@ Examples of class structure (and respectively file structure):
 
 <details>
 <summary><b>📋 Specification:</b></summary>
-Develop calculator using PyQt
+Develop bases calculator using PyQt
+</details>
+
+---
+
+### **Lab 2**
+
+**📅 Date:** 15.03.2023
+
+**📁 Project:** [link](lab-02)
+
+<details>
+<summary><b>📋 Specification:</b></summary>
+Develop full calculator using PyQt
 </details>
