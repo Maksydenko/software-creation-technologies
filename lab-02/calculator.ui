@@ -322,7 +322,7 @@
      <string/>
     </property>
    </widget>
-   <widget class="QPushButton" name="clear">
+   <widget class="QPushButton" name="delBtn">
     <property name="geometry">
      <rect>
       <x>170</x>

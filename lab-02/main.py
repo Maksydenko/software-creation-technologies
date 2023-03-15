@@ -9,6 +9,7 @@ class Ui_Calculator(object):
         self.centralwidget = QtWidgets.QWidget(Calculator)
         self.centralwidget.setObjectName("centralwidget")
 
+        # Input
         self.input = QtWidgets.QLabel(self.centralwidget)
         self.input.setGeometry(QtCore.QRect(10, 10, 311, 61))
         font = QtGui.QFont()
@@ -19,6 +20,7 @@ class Ui_Calculator(object):
         self.input.setText("")
         self.input.setObjectName("input")
 
+        # AC
         self.ac = QtWidgets.QPushButton(self.centralwidget)
         self.ac.setGeometry(QtCore.QRect(9, 80, 71, 71))
         font = QtGui.QFont()
@@ -29,6 +31,7 @@ class Ui_Calculator(object):
         self.ac.setObjectName("ac")
         self.ac.clicked.connect(self.clear_input)
 
+        # Bracket open ( ( )
         self.bracketOpen = QtWidgets.QPushButton(self.centralwidget)
         self.bracketOpen.setGeometry(QtCore.QRect(90, 80, 71, 71))
         font = QtGui.QFont()
@@ -39,6 +42,7 @@ class Ui_Calculator(object):
         self.bracketOpen.setObjectName("bracketOpen")
         self.bracketOpen.clicked.connect(self.write_bracket_open)
 
+        # Bracket close ( ) )
         self.bracketClose = QtWidgets.QPushButton(self.centralwidget)
         self.bracketClose.setGeometry(QtCore.QRect(170, 80, 71, 71))
         font = QtGui.QFont()
@@ -49,6 +53,7 @@ class Ui_Calculator(object):
         self.bracketClose.setObjectName("bracketClose")
         self.bracketClose.clicked.connect(self.write_bracket_close)
 
+        # Division ( / )
         self.division = QtWidgets.QPushButton(self.centralwidget)
         self.division.setGeometry(QtCore.QRect(250, 80, 71, 71))
         font = QtGui.QFont()
@@ -59,6 +64,7 @@ class Ui_Calculator(object):
         self.division.setObjectName("division")
         self.division.clicked.connect(self.write_division)
 
+        # Multiplication ( * )
         self.multiplication = QtWidgets.QPushButton(self.centralwidget)
         self.multiplication.setGeometry(QtCore.QRect(250, 160, 71, 71))
         font = QtGui.QFont()
@@ -69,6 +75,7 @@ class Ui_Calculator(object):
         self.multiplication.setObjectName("multiplication")
         self.multiplication.clicked.connect(self.write_multiplication)
 
+        # Subtraction ( - )
         self.subtraction = QtWidgets.QPushButton(self.centralwidget)
         self.subtraction.setGeometry(QtCore.QRect(250, 240, 71, 71))
         font = QtGui.QFont()
@@ -79,6 +86,7 @@ class Ui_Calculator(object):
         self.subtraction.setObjectName("subtraction")
         self.subtraction.clicked.connect(self.write_minus)
 
+        # Addition ( + )
         self.addition = QtWidgets.QPushButton(self.centralwidget)
         self.addition.setGeometry(QtCore.QRect(250, 320, 71, 71))
         font = QtGui.QFont()
@@ -89,6 +97,7 @@ class Ui_Calculator(object):
         self.addition.setObjectName("addition")
         self.addition.clicked.connect(self.write_plus)
 
+        # Result ( = )
         self.result = QtWidgets.QPushButton(self.centralwidget)
         self.result.setGeometry(QtCore.QRect(250, 400, 71, 71))
         font = QtGui.QFont()
@@ -99,16 +108,18 @@ class Ui_Calculator(object):
         self.result.setObjectName("result")
         self.result.clicked.connect(self.calc_input)
 
-        self.clear = QtWidgets.QPushButton(self.centralwidget)
-        self.clear.setGeometry(QtCore.QRect(170, 400, 71, 71))
+        # DEL button
+        self.delBtn = QtWidgets.QPushButton(self.centralwidget)
+        self.delBtn.setGeometry(QtCore.QRect(170, 400, 71, 71))
         font = QtGui.QFont()
         font.setPointSize(18)
         font.setBold(True)
         font.setWeight(75)
-        self.clear.setFont(font)
-        self.clear.setObjectName("clear")
-        self.clear.clicked.connect(self.clear_symbol)
+        self.delBtn.setFont(font)
+        self.delBtn.setObjectName("delBtn")
+        self.delBtn.clicked.connect(self.del_symbol)
 
+        # Point ( . )
         self.point = QtWidgets.QPushButton(self.centralwidget)
         self.point.setGeometry(QtCore.QRect(10, 400, 71, 71))
         font = QtGui.QFont()
@@ -119,6 +130,7 @@ class Ui_Calculator(object):
         self.point.setObjectName("point")
         self.point.clicked.connect(self.write_point)
 
+        # Zero ( 0 )
         self.zero = QtWidgets.QPushButton(self.centralwidget)
         self.zero.setGeometry(QtCore.QRect(90, 400, 71, 71))
         font = QtGui.QFont()
@@ -129,6 +141,7 @@ class Ui_Calculator(object):
         self.zero.setObjectName("zero")
         self.zero.clicked.connect(self.write_zero)
 
+        # One ( 1 )
         self.one = QtWidgets.QPushButton(self.centralwidget)
         self.one.setGeometry(QtCore.QRect(9, 160, 71, 71))
         font = QtGui.QFont()
@@ -139,6 +152,7 @@ class Ui_Calculator(object):
         self.one.setObjectName("one")
         self.one.clicked.connect(self.write_one)
 
+        # Two ( 2 )
         self.two = QtWidgets.QPushButton(self.centralwidget)
         self.two.setGeometry(QtCore.QRect(90, 160, 71, 71))
         font = QtGui.QFont()
@@ -149,6 +163,7 @@ class Ui_Calculator(object):
         self.two.setObjectName("two")
         self.two.clicked.connect(self.write_two)
 
+        # Three ( 3 )
         self.three = QtWidgets.QPushButton(self.centralwidget)
         self.three.setGeometry(QtCore.QRect(170, 160, 71, 71))
         font = QtGui.QFont()
@@ -159,6 +174,18 @@ class Ui_Calculator(object):
         self.three.setObjectName("three")
         self.three.clicked.connect(self.write_three)
 
+        # Four ( 4 )
+        self.four = QtWidgets.QPushButton(self.centralwidget)
+        self.four.setGeometry(QtCore.QRect(10, 240, 71, 71))
+        font = QtGui.QFont()
+        font.setPointSize(18)
+        font.setBold(True)
+        font.setWeight(75)
+        self.four.setFont(font)
+        self.four.setObjectName("four")
+        self.four.clicked.connect(self.write_four)
+
+        # Five ( 5 )
         self.five = QtWidgets.QPushButton(self.centralwidget)
         self.five.setGeometry(QtCore.QRect(90, 240, 71, 71))
         font = QtGui.QFont()
@@ -169,6 +196,7 @@ class Ui_Calculator(object):
         self.five.setObjectName("five")
         self.five.clicked.connect(self.write_five)
 
+        # Six ( 6 )
         self.six = QtWidgets.QPushButton(self.centralwidget)
         self.six.setGeometry(QtCore.QRect(170, 240, 71, 71))
         font = QtGui.QFont()
@@ -179,6 +207,7 @@ class Ui_Calculator(object):
         self.six.setObjectName("six")
         self.six.clicked.connect(self.write_six)
 
+        # Seven ( 7 )
         self.seven = QtWidgets.QPushButton(self.centralwidget)
         self.seven.setGeometry(QtCore.QRect(10, 320, 71, 71))
         font = QtGui.QFont()
@@ -189,6 +218,7 @@ class Ui_Calculator(object):
         self.seven.setObjectName("seven")
         self.seven.clicked.connect(self.write_seven)
 
+        # Eight ( 8 )
         self.eight = QtWidgets.QPushButton(self.centralwidget)
         self.eight.setGeometry(QtCore.QRect(90, 320, 71, 71))
         font = QtGui.QFont()
@@ -199,6 +229,7 @@ class Ui_Calculator(object):
         self.eight.setObjectName("eight")
         self.eight.clicked.connect(self.write_eight)
 
+        # Nine ( 9 )
         self.nine = QtWidgets.QPushButton(self.centralwidget)
         self.nine.setGeometry(QtCore.QRect(170, 320, 71, 71))
         font = QtGui.QFont()
@@ -208,16 +239,6 @@ class Ui_Calculator(object):
         self.nine.setFont(font)
         self.nine.setObjectName("nine")
         self.nine.clicked.connect(self.write_nine)
-
-        self.four = QtWidgets.QPushButton(self.centralwidget)
-        self.four.setGeometry(QtCore.QRect(10, 240, 71, 71))
-        font = QtGui.QFont()
-        font.setPointSize(18)
-        font.setBold(True)
-        font.setWeight(75)
-        self.four.setFont(font)
-        self.four.setObjectName("four")
-        self.four.clicked.connect(self.write_four)
 
         Calculator.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(Calculator)
@@ -238,7 +259,7 @@ class Ui_Calculator(object):
         self.subtraction.setText(_translate("Calculator", "-"))
         self.addition.setText(_translate("Calculator", "+"))
         self.result.setText(_translate("Calculator", "="))
-        self.clear.setText(_translate("Calculator", "DEL"))
+        self.delBtn.setText(_translate("Calculator", "DEL"))
         self.point.setText(_translate("Calculator", "."))
         self.zero.setText(_translate("Calculator", "0"))
         self.one.setText(_translate("Calculator", "1"))
@@ -311,7 +332,7 @@ class Ui_Calculator(object):
             except:
                 return self.input.setText("Error")
 
-    def clear_symbol(self):
+    def del_symbol(self):
         equation = self.input.text()
         equation = equation[:-1]
         self.input.setText(str(equation))
