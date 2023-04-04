@@ -82,3 +82,18 @@ Develop bases calculator using PyQt
 <summary><b>📋 Specification:</b></summary>
 Develop full calculator using PyQt
 </details>
+
+---
+
+### **Practice 3**
+
+**📅 Date:** 05.04.2023
+
+**📁 Project:** [link](practice-03)
+
+<details>
+<summary><b>📋 Specification:</b></summary>
+
+1. Travel. View day and night images of football stadiums
+2. Pizzeria. Ordering pizza of different sizes with the possibility of adding ingredients
+</details>
