@@ -71,7 +71,7 @@ class MainWindow(QMainWindow):
         for e in employees:
             self.table.setItem(row, 0, QTableWidgetItem(e["First Name"]))
             self.table.setItem(row, 1, QTableWidgetItem(e["Last Name"]))
-            self.table.setItem(row, 2, QTableWidgetItem(e["Age"]))
+            self.table.setItem(row, 2, QTableWidgetItem(str(e["Age"])))
             row += 1
 
         self.counter = QLabel(
