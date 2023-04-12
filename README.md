@@ -97,3 +97,24 @@ Develop full calculator using PyQt
 1. Travel. View day and night images of football stadiums
 2. Pizzeria. Ordering pizza of different sizes with the possibility of adding ingredients
 </details>
+
+---
+
+### **Lab 3**
+
+**📅 Date:** 13.04.2023
+
+**📁 Project:** [link](lab-03)
+
+<details>
+<summary><b>📋 Specification:</b></summary>
+
+1. Create a mini-project to demonstrate how to work with a table based on your own scenario.
+2. Implement the methods:
+
+   - show the number of active column and row;
+   - show the number of columns and rows;
+   - add/remove row/col;
+   - pass a text/number from a field to a table cell.
+
+   </details>
