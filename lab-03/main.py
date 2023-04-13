@@ -18,7 +18,7 @@ class MainWindow(QMainWindow):
         super().__init__()
 
         self.setWindowTitle("Lab 3")
-        self.setMinimumSize(QSize(389, 580))
+        self.setMinimumSize(QSize(385, 580))
         # Create a central widget
         central_widget = QWidget(self)
         # Install the central widget
