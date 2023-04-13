@@ -132,6 +132,9 @@ class MainWindow(QMainWindow):
                 self.last_name.setStyleSheet("border: 1px solid red;")
             if not len(age):
                 self.age.setStyleSheet("border: 1px solid red;")
+            else:
+                if not self.is_int(age):
+                    self.age.setStyleSheet("border: 1px solid red;")
 
     # Remove row
     def remove_row(self):
