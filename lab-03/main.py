@@ -41,12 +41,12 @@ class MainWindow(QMainWindow):
         self.age.setStyleSheet("border: 1px solid #dbdbdb;")
 
         # Buttons
-        self.add_row_Button = QPushButton("Add row")
-        self.add_row_Button.clicked.connect(self.add_row_Button_clicked)
-        self.remove_row_Button = QPushButton("Remove row")
-        self.remove_row_Button.clicked.connect(self.remove_row_Button_clicked)
-        self.remove_column_Button = QPushButton("Remove column")
-        self.remove_column_Button.clicked.connect(self.remove_column_Button_clicked)
+        self.add_row_button = QPushButton("Add row")
+        self.add_row_button.clicked.connect(self.add_row)
+        self.remove_row_button = QPushButton("Remove row")
+        self.remove_row_button.clicked.connect(self.remove_row)
+        self.remove_column_button = QPushButton("Remove column")
+        self.remove_column_button.clicked.connect(self.remove_column)
 
         employees = [
             {"First Name": "John", "Last Name": "Doe", "Age": 25},
@@ -84,13 +84,13 @@ class MainWindow(QMainWindow):
         # Adding the table to the grid
         grid_layout.addWidget(self.table, 0, 0)
         grid_layout.addWidget(self.counter, 1, 0)
-        grid_layout.addWidget(self.add_row_Button, 2, 0)
+        grid_layout.addWidget(self.add_row_button, 2, 0)
         grid_layout.addWidget(self.name, 3, 0)
         grid_layout.addWidget(self.last_name, 4, 0)
         grid_layout.addWidget(self.age, 5, 0)
         grid_layout.addWidget(self.active, 6, 0)
-        grid_layout.addWidget(self.remove_row_Button, 7, 0)
-        grid_layout.addWidget(self.remove_column_Button, 8, 0)
+        grid_layout.addWidget(self.remove_row_button, 7, 0)
+        grid_layout.addWidget(self.remove_column_button, 8, 0)
 
         self.table.cellClicked.connect(self.update_active_cell)
 
@@ -104,7 +104,7 @@ class MainWindow(QMainWindow):
             return False
 
     # Add row
-    def add_row_Button_clicked(self):
+    def add_row(self):
         row_position = self.table.rowCount()
         name = self.name.text()
         last_name = self.last_name.text()
@@ -134,7 +134,7 @@ class MainWindow(QMainWindow):
                 self.age.setStyleSheet("border: 1px solid red;")
 
     # Remove row
-    def remove_row_Button_clicked(self):
+    def remove_row(self):
         active_row = self.table.currentRow()
         self.table.removeRow(active_row)
         self.counter.setText(
@@ -143,7 +143,7 @@ class MainWindow(QMainWindow):
         )
 
     # Remove column
-    def remove_column_Button_clicked(self):
+    def remove_column(self):
         if self.table.columnCount() > 1:
             active_column = self.table.currentColumn()
             self.table.removeColumn(active_column)
