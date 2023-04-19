@@ -170,25 +170,25 @@ class Example(QWidget):
         self.img.setScaledContents(True)
 
     # Label change
-    def handle_change_label(self):
-        self.handle_change_text(self.title, 300, 50)
+    def handle_change_title(self):
+        self.handle_change_text(self.title, 225, 50)
         self.title.setText(choice(self.LABELS))
 
     # Move items radio change
     def handle_change_move_radio(self):
-        self.handle_change_text(self.move_items_radio, 300, 50)
+        self.handle_change_text(self.move_items_radio, 375, 50)
 
     # Static items radio change
     def handle_change_static_radio(self):
-        self.handle_change_text(self.static_items_radio, 300, 50)
+        self.handle_change_text(self.static_items_radio, 375, 50)
 
     # Main button change
     def handle_change_main_button(self):
-        self.handle_change_text(self.main_button, 300, 50)
+        self.handle_change_text(self.main_button, 275, 50)
 
     # Reserve button change
     def handle_change_reserve_button(self):
-        self.handle_change_text(self.reserve_button, 400, 50)
+        self.handle_change_text(self.reserve_button, 375, 50)
 
     # Move items
     def handle_move_items(self):
@@ -203,7 +203,7 @@ class Example(QWidget):
     def handle_click_button(self):
         self.window().setStyleSheet(f"background-color: #{randint(100000, 999999)}")
         self.handle_change_img()
-        self.handle_change_label()
+        self.handle_change_title()
         self.handle_change_move_radio()
         self.handle_change_static_radio()
         self.handle_change_main_button()
