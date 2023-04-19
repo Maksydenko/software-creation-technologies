@@ -1,166 +1,219 @@
-import sys
-from PyQt5.QtWidgets import (
-    QPushButton,
-    QLineEdit,
-    QLabel,
-    QWidget,
-    QApplication,
-    QMainWindow,
-    QGridLayout,
-    QTableWidget,
-    QTableWidgetItem,
-)
-from PyQt5.QtCore import QSize
+from sys import argv, exit
+from random import randint, choice
+from urllib import request
+
+from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QLabel, QRadioButton
+from PyQt5.QtGui import QFont, QPixmap
 
 
-class MainWindow(QMainWindow):
+class Example(QWidget):
     def __init__(self):
         super().__init__()
+        self.initUI()
 
-        self.setWindowTitle("Lab 3")
-        self.setMinimumSize(QSize(385, 580))
-        # Create a central widget
-        central_widget = QWidget(self)
-        # Install the central widget
-        self.setCentralWidget(central_widget)
+    # Constants
 
-        # Create QGridLayout
-        grid_layout = QGridLayout(self)
-        # Set this layout in central widget
-        central_widget.setLayout(grid_layout)
+    WINDOW_WIDTH = 600
+    WINDOW_HEIGHT = 450
 
-        # Lines edit
-        self.name = QLineEdit()
-        self.name.setPlaceholderText("Input name")
-        self.name.setStyleSheet("border: 1px solid #dbdbdb;")
-        self.last_name = QLineEdit()
-        self.last_name.setPlaceholderText("Input last name")
-        self.last_name.setStyleSheet("border: 1px solid #dbdbdb;")
-        self.age = QLineEdit()
-        self.age.setPlaceholderText("Input age")
-        self.age.setStyleSheet("border: 1px solid #dbdbdb;")
+    DEFAULT_TITLE_STYLES = "font-size: 24px; \
+      font-weight: 700; \
+        color: #333333;"
+    DEFAULT_RADIO_STYLES = "font-size: 16px; \
+      font-weight: 600; \
+        color: #333333;"
+    DEFAULT_BUTTON_STYLES = "font-size: 16px; \
+      font-weight: 500; \
+        border-radius: 5px;"
+
+    TEMPLATE_IMG_URL = "https://raw.githubusercontent.com/Maksydenko/olegity/master/src/src/assets/img/concerts/webp/concert"
+
+    LABELS = [
+        "HTML",
+        "CSS",
+        "SCSS",
+        "JavaScript",
+        "TypeScript",
+        "React",
+        "Redux Toolkit",
+        "Next.js",
+        "Webpack",
+        "Git",
+    ]
+
+    FONT_FAMILIES = [
+        "Arial",
+        "Times New Roman",
+        "Courier New",
+        "Impact",
+        "Comic Sans MS",
+    ]
+    BORDER_STYLES = [
+        "dotted",
+        "dashed",
+        "solid",
+        "double",
+        "groove",
+        "ridge",
+        "inset",
+        "outside",
+    ]
+    TEXT_TRANSFORMS = ["capitalize", "uppercase", "lowercase"]
+
+    def initUI(self):
+        # Image
+        self.img = QLabel(self)
+
+        # Title
+        self.title = QLabel(self)
+        self.title.setText("Frontend")
+        self.title.setStyleSheet(self.DEFAULT_TITLE_STYLES)
+        self.title.move(200, 100)
+
+        # Radios
+
+        self.move_items_radio = QRadioButton("Turn on move items", self)
+        self.move_items_radio.setStyleSheet(self.DEFAULT_RADIO_STYLES)
+        self.move_items_radio.setChecked(True)
+        self.move_items_radio.move(200, 150)
+
+        self.static_items_radio = QRadioButton("Turn off move items", self)
+        self.static_items_radio.setStyleSheet(self.DEFAULT_RADIO_STYLES)
+        self.static_items_radio.move(200, 190)
 
         # Buttons
-        self.add_row_button = QPushButton("Add row")
-        self.add_row_button.clicked.connect(self.add_row)
-        self.remove_row_button = QPushButton("Remove row")
-        self.remove_row_button.clicked.connect(self.remove_row)
-        self.remove_column_button = QPushButton("Remove column")
-        self.remove_column_button.clicked.connect(self.remove_column)
 
-        employees = [
-            {"First Name": "John", "Last Name": "Doe", "Age": 25},
-            {"First Name": "Jane", "Last Name": "Doe", "Age": 22},
-            {"First Name": "Alice", "Last Name": "Doe", "Age": 22},
-        ]
-
-        self.table = QTableWidget(self)
-
-        self.table.setMaximumHeight = 200
-        self.table.setMaximumWidth = 300
-        self.table.show()
-        self.table.setColumnCount(3)
-        self.table.setColumnWidth(0, 150)
-        self.table.setColumnWidth(1, 150)
-        self.table.setColumnWidth(2, 50)
-
-        self.table.setHorizontalHeaderLabels(employees[0].keys())
-        self.table.setRowCount(len(employees))
-
-        row = 0
-        for e in employees:
-            self.table.setItem(row, 0, QTableWidgetItem(e["First Name"]))
-            self.table.setItem(row, 1, QTableWidgetItem(e["Last Name"]))
-            self.table.setItem(row, 2, QTableWidgetItem(str(e["Age"])))
-            row += 1
-
-        self.counter = QLabel(
-            f"Total rows: {self.table.rowCount()}\t"
-            f"Total columns: {self.table.columnCount()}"
+        self.main_button = QPushButton("Change all", self)
+        self.main_button.setStyleSheet(
+            self.DEFAULT_BUTTON_STYLES + self.get_colorize_styles("#170c10", "#1edd63")
         )
+        self.main_button.move(200, 240)
+        self.main_button.clicked.connect(self.handle_click_button)
 
-        self.active = QLabel(f"Active row: 0\tActive column: 0")
+        self.reserve_button = QPushButton("Reserve change all", self)
+        self.reserve_button.setStyleSheet(
+            self.DEFAULT_BUTTON_STYLES + self.get_colorize_styles("#001e36", "#31a7fd")
+        )
+        self.reserve_button.move(200, 280)
+        self.reserve_button.clicked.connect(self.handle_click_button)
 
-        # Adding the table to the grid
-        grid_layout.addWidget(self.table, 0, 0)
-        grid_layout.addWidget(self.counter, 1, 0)
-        grid_layout.addWidget(self.add_row_button, 2, 0)
-        grid_layout.addWidget(self.name, 3, 0)
-        grid_layout.addWidget(self.last_name, 4, 0)
-        grid_layout.addWidget(self.age, 5, 0)
-        grid_layout.addWidget(self.active, 6, 0)
-        grid_layout.addWidget(self.remove_row_button, 7, 0)
-        grid_layout.addWidget(self.remove_column_button, 8, 0)
+        self.resize(self.WINDOW_WIDTH, self.WINDOW_HEIGHT)
+        self.setWindowTitle("Lab 3")
+        self.show()
 
-        self.table.cellClicked.connect(self.update_active_cell)
+    # Static methods
 
-    # Check whether the value can be the int
     @staticmethod
-    def is_int(value):
-        try:
-            int(value)
-            return True
-        except ValueError:
-            return False
+    def get_img_number():
+        img_number = randint(1, 20)
 
-    # Add row
-    def add_row(self):
-        row_position = self.table.rowCount()
-        name = self.name.text()
-        last_name = self.last_name.text()
-        age = self.age.text()
-        self.name.setStyleSheet("border: 1px solid #dbdbdb;")
-        self.last_name.setStyleSheet("border: 1px solid #dbdbdb;")
-        self.age.setStyleSheet("border: 1px solid #dbdbdb;")
+        if img_number < 10:
+            img_number = f"0{img_number}"
+        return img_number
 
-        if len(name) and len(last_name) and self.is_int(self.age.text()):
-            self.table.insertRow(row_position)
-            self.table.setItem(row_position, 0, QTableWidgetItem(name))
-            self.table.setItem(row_position, 1, QTableWidgetItem(last_name))
-            self.table.setItem(row_position, 2, QTableWidgetItem(age))
-            self.counter.setText(
-                f"Total rows: {self.table.rowCount()}\t"
-                f"Total columns: {self.table.columnCount()}"
-            )
-            self.name.setText("")
-            self.last_name.setText("")
-            self.age.setText("")
-        else:
-            if not len(name):
-                self.name.setStyleSheet("border: 1px solid red;")
-            if not len(last_name):
-                self.last_name.setStyleSheet("border: 1px solid red;")
-            if not len(age):
-                self.age.setStyleSheet("border: 1px solid red;")
-            else:
-                if not self.is_int(age):
-                    self.age.setStyleSheet("border: 1px solid red;")
+    @staticmethod
+    def get_size(max_width, max_height):
+        min_width = max_width // 1.5
+        min_height = max_height // 1.5
 
-    # Remove row
-    def remove_row(self):
-        active_row = self.table.currentRow()
-        self.table.removeRow(active_row)
-        self.counter.setText(
-            f"Total rows: {self.table.rowCount()}\t"
-            f"Total columns: {self.table.columnCount()}"
-        )
+        width = randint(min_width, max_width)
+        height = randint(min_height, max_height)
+        return width, height
 
-    # Remove column
-    def remove_column(self):
-        if self.table.columnCount() > 1:
-            active_column = self.table.currentColumn()
-            self.table.removeColumn(active_column)
-            self.counter.setText(
-                f"Total rows: {self.table.rowCount()}\t"
-                f"Total columns: {self.table.columnCount()}"
-            )
+    @staticmethod
+    def get_colorize_styles(color, background_color):
+        return f"border: 2px solid {color}; color: {color}; background-color: {background_color}"
 
-    # Update active cell
-    def update_active_cell(self, row, column):
-        self.active.setText(f"Active row: {row + 1}\tActive column: {column + 1}")
+    # Common methods
+
+    def generate_styles(self):
+        font_size = f"{randint(12, 24)}px"
+        font_weight = randint(1, 9) * 100
+        color = f"#{randint(100000, 999999)}"
+        border_radius = f"{randint(0, 50)}px"
+        border = f"{randint(1, 5)}px {choice(self.BORDER_STYLES)} {color}"
+        background_color = f"#{randint(100000, 999999)}"
+
+        return f"font-size: {font_size}; \
+          font-weight: {font_weight}; \
+            border-radius: {border_radius}; \
+              border: {border}; \
+                color: {color}; \
+                  background-color: {background_color}; \
+                    text-transform: {choice(self.TEXT_TRANSFORMS)};"
+
+    def handle_change_text(self, object, max_width, max_height):
+        font = QFont()
+        font.setFamily(choice(self.FONT_FAMILIES))
+
+        object.setFont(font)
+        object.resize(*self.get_size(max_width, max_height))
+        object.setStyleSheet(self.generate_styles())
+
+    def get_coords(self, max_width, max_height, padding=15):
+        x = self.WINDOW_WIDTH - (max_width + padding)
+        y = self.WINDOW_HEIGHT - (max_height + padding)
+
+        x = randint(padding, x)
+        y = randint(padding, y)
+        return x, y
+
+    # Image change
+    def handle_change_img(self):
+        img_url = f"{self.TEMPLATE_IMG_URL}-{self.get_img_number()}.webp"
+        data = request.urlopen(img_url).read()
+        pixmap = QPixmap()
+        pixmap.loadFromData(data)
+
+        self.img.resize(*self.get_size(300, 300))
+        self.img.setPixmap(pixmap)
+        self.img.setScaledContents(True)
+
+    # Label change
+    def handle_change_label(self):
+        self.handle_change_text(self.title, 300, 50)
+        self.title.setText(choice(self.LABELS))
+
+    # Move items radio change
+    def handle_change_move_radio(self):
+        self.handle_change_text(self.move_items_radio, 300, 50)
+
+    # Static items radio change
+    def handle_change_static_radio(self):
+        self.handle_change_text(self.static_items_radio, 300, 50)
+
+    # Main button change
+    def handle_change_main_button(self):
+        self.handle_change_text(self.main_button, 300, 50)
+
+    # Reserve button change
+    def handle_change_reserve_button(self):
+        self.handle_change_text(self.reserve_button, 400, 50)
+
+    # Move items
+    def handle_move_items(self):
+        self.img.move(*self.get_coords(300, 300))
+        self.title.move(*self.get_coords(300, 50))
+        self.move_items_radio.move(*self.get_coords(300, 50))
+        self.static_items_radio.move(*self.get_coords(300, 50))
+        self.main_button.move(*self.get_coords(300, 50))
+        self.reserve_button.move(*self.get_coords(375, 450, 0))
+
+    # Click on button
+    def handle_click_button(self):
+        self.window().setStyleSheet(f"background-color: #{randint(100000, 999999)}")
+        self.handle_change_img()
+        self.handle_change_label()
+        self.handle_change_move_radio()
+        self.handle_change_static_radio()
+        self.handle_change_main_button()
+        self.handle_change_reserve_button()
+
+        if self.move_items_radio.isChecked():
+            self.handle_move_items()
 
 
-app = QApplication(sys.argv)
-window = MainWindow()
-window.show()
-app.exec()
+if __name__ == "__main__":
+    app = QApplication(argv)
+    ex = Example()
+    exit(app.exec_())

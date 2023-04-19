@@ -1,4 +1,4 @@
-import urllib.request
+from urllib import request
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
@@ -109,15 +109,12 @@ class Ui_Practice3(object):
 
         # Additional pizza ingredients
 
-        self.pizza_additional_ingridients = QtWidgets.QLabel(
-            self.centralwidget)
-        self.pizza_additional_ingridients.setGeometry(
-            QtCore.QRect(160, 330, 221, 31))
+        self.pizza_additional_ingridients = QtWidgets.QLabel(self.centralwidget)
+        self.pizza_additional_ingridients.setGeometry(QtCore.QRect(160, 330, 221, 31))
         font = QtGui.QFont()
         font.setPointSize(16)
         self.pizza_additional_ingridients.setFont(font)
-        self.pizza_additional_ingridients.setObjectName(
-            "pizza_additional_ingridients")
+        self.pizza_additional_ingridients.setObjectName("pizza_additional_ingridients")
 
         self.mushrooms = QtWidgets.QCheckBox(self.centralwidget)
         self.mushrooms.setGeometry(QtCore.QRect(170, 370, 121, 21))
@@ -190,8 +187,7 @@ class Ui_Practice3(object):
         _translate = QtCore.QCoreApplication.translate
         Practice3.setWindowTitle(_translate("Practice3", "Practice 3"))
         self.stadium_title.setText(_translate("Practice3", "View the stadium"))
-        self.santiago_bernabeu.setText(
-            _translate("Practice3", "Santiago Bernabéu"))
+        self.santiago_bernabeu.setText(_translate("Practice3", "Santiago Bernabéu"))
         self.allianz_arena.setText(_translate("Practice3", "Allianz Arena"))
         self.old_trafford.setText(_translate("Practice3", "Old Trafford"))
         self.night_mode.setText(_translate("Practice3", "Night"))
@@ -201,7 +197,8 @@ class Ui_Practice3(object):
         self.pizza_medium.setText(_translate("Practice3", "Medium"))
         self.pizza_small.setText(_translate("Practice3", "Small"))
         self.pizza_additional_ingridients.setText(
-            _translate("Practice3", "Additional ingredients:"))
+            _translate("Practice3", "Additional ingredients:")
+        )
         self.mushrooms.setText(_translate("Practice3", "Mushrooms"))
         self.pineapple.setText(_translate("Practice3", "Pineapple"))
         self.corn.setText(_translate("Practice3", "Corn"))
@@ -218,48 +215,44 @@ class Ui_Practice3(object):
     ALLIANZ_ARENA_IMG = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Allianz-Arena-M%C3%BCnchen.jpg/1200px-Allianz-Arena-M%C3%BCnchen.jpg"
     ALLIANZ_ARENA_NIGHT_IMG = "https://upload.wikimedia.org/wikipedia/commons/3/36/Allianz_arena_at_night_Richard_Bartz.jpg"
     OLD_TRAFFORD_IMG = "https://i2-prod.manchestereveningnews.co.uk/sport/football/article24067811.ece/ALTERNATES/s615/0_GettyImages-1384570281.jpg"
-    OLD_TRAFFORD_NIGHT_IMG = "https://assets.manutd.com/AssetPicker/images/0/0/17/106/1141450/GettyImages_14208441201662471639973_large.jpg "
+    OLD_TRAFFORD_NIGHT_IMG = "https://assets.manutd.com/AssetPicker/images/0/0/17/106/1141450/GettyImages_14208441201662471639973_large.jpg"
+
+    # Set image
+    def set_img(self, day_img, night_img, title):
+        def choose_img():
+            if self.night_mode.isChecked():
+                return night_img
+            return day_img
+
+        data = request.urlopen(choose_img()).read()
+        pixmap = QtGui.QPixmap()
+        pixmap.loadFromData(data)
+        self.stadium_img.setPixmap(pixmap)
+        self.stadium_img.setScaledContents(True)
+        self.stadium_info.setText(title)
 
     # Stadium section
 
     def show_santiago_bernabeu(self):
-        if self.night_mode.isChecked():
-            data = urllib.request.urlopen(
-                self.SANTIAGO_BERNABEU_NIGHT_IMG).read()
-        else:
-            data = urllib.request.urlopen(
-                self.SANTIAGO_BERNABEU_IMG).read()
-        img = QtGui.QPixmap()
-        img.loadFromData(data)
-        self.stadium_img.setPixmap(img)
-        self.stadium_img.setScaledContents(True)
-        self.stadium_info.setText("Football stadium in Madrid")
+        self.set_img(
+            self.SANTIAGO_BERNABEU_IMG,
+            self.SANTIAGO_BERNABEU_NIGHT_IMG,
+            "Football stadium in Madrid",
+        )
 
     def show_allianz_arena(self):
-        if self.night_mode.isChecked():
-            data = urllib.request.urlopen(
-                self.ALLIANZ_ARENA_NIGHT_IMG).read()
-        else:
-            data = urllib.request.urlopen(
-                self.ALLIANZ_ARENA_IMG).read()
-        img = QtGui.QPixmap()
-        img.loadFromData(data)
-        self.stadium_img.setPixmap(img)
-        self.stadium_img.setScaledContents(True)
-        self.stadium_info.setText("Football stadium in Munich")
+        self.set_img(
+            self.ALLIANZ_ARENA_IMG,
+            self.ALLIANZ_ARENA_NIGHT_IMG,
+            "Football stadium in Munich",
+        )
 
     def show_old_trafford(self):
-        if self.night_mode.isChecked():
-            data = urllib.request.urlopen(
-                self.OLD_TRAFFORD_NIGHT_IMG).read()
-        else:
-            data = urllib.request.urlopen(
-                self.OLD_TRAFFORD_IMG).read()
-        img = QtGui.QPixmap()
-        img.loadFromData(data)
-        self.stadium_img.setPixmap(img)
-        self.stadium_img.setScaledContents(True)
-        self.stadium_info.setText("Football stadium in Manchester")
+        self.set_img(
+            self.OLD_TRAFFORD_IMG,
+            self.OLD_TRAFFORD_NIGHT_IMG,
+            "Football stadium in Manchester",
+        )
 
     # Pizza section
 
@@ -294,6 +287,7 @@ class Ui_Practice3(object):
 
 if __name__ == "__main__":
     import sys
+
     app = QtWidgets.QApplication(sys.argv)
     Practice3 = QtWidgets.QMainWindow()
     ui = Ui_Practice3()

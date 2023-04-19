@@ -25,7 +25,7 @@ Display the contents of all 3 files on the screen, show in tabular form.
 
 Examples of class structure (and respectively file structure):
 
-- surname name slary age.
+- surname name salary age.
 </details>
 
 ---
@@ -102,9 +102,26 @@ Develop full calculator using PyQt
 
 ### **Lab 3**
 
+**📅 Date:** 19.04.2023
+
+**📁 Project:** [link](lab-03/main.py)
+
+<details>
+<summary><b>📋 Specification:</b></summary>
+
+With PyQt designer add buttons, label, radio, img
+
+Change the design: font, font size, text and background color, element size, dynamic positioning (on click)
+
+</details>
+
+---
+
+### **Lab 4**
+
 **📅 Date:** 13.04.2023
 
-**📁 Project:** [link](lab-03)
+**📁 Project:** [link](lab-04)
 
 <details>
 <summary><b>📋 Specification:</b></summary>
@@ -117,4 +134,4 @@ Develop full calculator using PyQt
    - add/remove row/col;
    - pass a text/number from a field to a table cell.
 
-   </details>
+</details>
