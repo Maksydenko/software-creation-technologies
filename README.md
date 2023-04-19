@@ -135,3 +135,29 @@ Change the design: font, font size, text and background color, element size, dyn
    - pass a text/number from a field to a table cell.
 
 </details>
+
+---
+
+### **Lab 5**
+
+**📅 Date:** 19.04.2023
+
+**📁 Project:** [link](lab-05)
+
+<details>
+<summary><b>📋 Specification:</b></summary>
+
+Add toolbar to the lab 4:
+
+1. File
+
+   - Open
+   - Save
+
+2. Edit
+
+   - Cut
+   - Copy
+   - Paste
+
+</details>

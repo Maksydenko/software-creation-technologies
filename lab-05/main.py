@@ -1,4 +1,5 @@
 from sys import argv
+from json import load, dump
 from PyQt5.QtWidgets import (
     QPushButton,
     QLineEdit,
@@ -9,7 +10,11 @@ from PyQt5.QtWidgets import (
     QGridLayout,
     QTableWidget,
     QTableWidgetItem,
+    QAction,
+    QToolBar,
+    QShortcut,
 )
+from PyQt5.QtGui import QIcon, QKeySequence
 from PyQt5.QtCore import QSize
 
 
@@ -17,12 +22,49 @@ class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
 
-        self.setWindowTitle("Lab 4")
+        self.setWindowTitle("Lab 5")
         self.setMinimumSize(QSize(389, 580))
         # Create a central widget
         central_widget = QWidget(self)
         # Install the central widget
         self.setCentralWidget(central_widget)
+
+        self.toolbar = QToolBar("Toolbar")
+        self.addToolBar(self.toolbar)
+
+        menubar = self.menuBar()
+
+        fileMenu = menubar.addMenu("File")
+        openAction = QAction(QIcon("icons/open.svg"), "Open", self)
+        openAction.triggered.connect(self.handle_open)
+        openAction_shortcut = QShortcut(QKeySequence("Ctrl+O"), self)
+        openAction_shortcut.activated.connect(self.handle_open)
+        fileMenu.addAction(openAction)
+
+        saveAction = QAction(QIcon("icons/save.svg"), "Save", self)
+        saveAction.triggered.connect(self.handle_save)
+        saveAction_shortcut = QShortcut(QKeySequence("Ctrl+S"), self)
+        saveAction_shortcut.activated.connect(self.handle_save)
+        fileMenu.addAction(saveAction)
+
+        editMenu = menubar.addMenu("Edit")
+        cutAction = QAction(QIcon("icons/cut.svg"), "Cut", self)
+        cutAction.triggered.connect(self.handle_copy)
+        cutAction_shortcut = QShortcut(QKeySequence("Ctrl+X"), self)
+        cutAction_shortcut.activated.connect(self.handle_cut)
+        editMenu.addAction(cutAction)
+
+        copyAction = QAction(QIcon("icons/copy.svg"), "Copy", self)
+        copyAction.triggered.connect(self.handle_copy)
+        copyAction_shortcut = QShortcut(QKeySequence("Ctrl+C"), self)
+        copyAction_shortcut.activated.connect(self.handle_copy)
+        editMenu.addAction(copyAction)
+
+        pasteAction = QAction(QIcon("icons/paste.svg"), "Paste", self)
+        pasteAction.triggered.connect(self.handle_past)
+        pasteAction_shortcut = QShortcut(QKeySequence("Ctrl+V"), self)
+        pasteAction_shortcut.activated.connect(self.handle_past)
+        editMenu.addAction(pasteAction)
 
         # Create QGridLayout
         grid_layout = QGridLayout(self)
@@ -97,6 +139,83 @@ class MainWindow(QMainWindow):
         grid_layout.addWidget(self.remove_column_button, 8, 0)
 
         self.table.cellClicked.connect(self.update_active_cell)
+
+    global clipboard
+
+    # Toolbar methods
+
+    def handle_cut(self):
+        try:
+            global clipboard
+
+            selected_items = self.table.selectedItems()
+            selected_item = selected_items[0]
+            text = selected_item.text()
+            clipboard = [text]
+
+            row = selected_item.row()
+            column = selected_item.column()
+            self.table.setItem(row, column, QTableWidgetItem(""))
+            return clipboard
+        except:
+            return
+
+    def handle_copy(self):
+        try:
+            global clipboard
+
+            selected_items = self.table.selectedItems()
+            selected_item = selected_items[0]
+            text = selected_item.text()
+            clipboard = [text]
+            return clipboard
+        except:
+            return
+
+    def handle_past(self):
+        try:
+            global clipboard
+
+            selected_items = self.table.selectedItems()
+            selected_item = selected_items[0]
+            row = selected_item.row()
+            column = selected_item.column()
+
+            self.table.setItem(row, column, QTableWidgetItem(str(clipboard[0])))
+        except:
+            return
+
+    def handle_open(self):
+        try:
+            with open("data.json", "r") as f:
+                data = load(f)
+
+            num_rows = max([int(key.split("_")[0]) for key in data.keys()]) + 1
+            num_cols = max([int(key.split("_")[1]) for key in data.keys()]) + 1
+
+            self.table.setRowCount(num_rows)
+            self.table.setColumnCount(num_cols)
+
+            for key, value in data.items():
+                row_idx = int(key.split("_")[0])
+                col_idx = int(key.split("_")[1])
+                item = QTableWidgetItem(str(value))
+                self.table.setItem(row_idx, col_idx, item)
+        except:
+            return
+
+    def handle_save(self):
+        data = {}
+        num_rows = self.table.rowCount()
+        num_cols = self.table.columnCount()
+
+        for row in range(num_rows):
+            for col in range(num_cols):
+                cell_value = self.table.item(row, col).text()
+                data[f"{row}_{col}"] = cell_value
+
+        with open("data.json", "w") as f:
+            dump(data, f, indent=4)
 
     # Check whether the value can be the int
     @staticmethod
