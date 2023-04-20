@@ -187,8 +187,8 @@ class MainWindow(QMainWindow):
 
     def handle_open(self):
         try:
-            with open("data.json", "r") as f:
-                data = load(f)
+            with open("data.json", "r") as file_data:
+                data = load(file_data)
 
             num_rows = max([int(key.split("_")[0]) for key in data.keys()]) + 1
             num_cols = max([int(key.split("_")[1]) for key in data.keys()]) + 1
@@ -214,8 +214,8 @@ class MainWindow(QMainWindow):
                 cell_value = self.table.item(row, col).text()
                 data[f"{row}_{col}"] = cell_value
 
-        with open("data.json", "w") as f:
-            dump(data, f, indent=4)
+        with open("data.json", "w") as file_data:
+            dump(data, file_data, indent=4)
 
     # Check whether the value can be the int
     @staticmethod
